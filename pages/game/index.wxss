@@ -1,8 +1,11 @@
 /* pages/game/index.wxss */
+page{font-size: 12px}
+
 .score{
     width:80%;
     line-height: 36px;
     margin:0 auto;
+    font-size:24px;
 }
 .lf{
     float:left;
@@ -45,6 +48,7 @@
 [id$="4"]{left:290px}
 [id$="5"]{left:360px}
 
+
 .n2{background-color:#eee3da}
 .n4{background-color:#ede0c8}
 .n8{background-color:#f2b179}
@@ -58,13 +62,15 @@
 .n2048{background-color:#09c}
 .n4096{background-color:#a6c}
 .n8192{background-color:#93c}
-.n2,.n4{color:#776e65}
-.n1024,.n2048,.n4096,.n8192{font-size:40px}
-
+.n1024,.n2048,.n4096,.n8192{font-size:24px}
+.n16,.n32,.n64{font-size:48px}
+.n128,.n256,.n512{font-size:36px}
+.n2,.n4{
+  color:#555;
+}
 
 
 .gameOver{
-  display:block;
   position:absolute;
   top:0;
   left:0;
@@ -112,8 +118,14 @@
   margin-top:10px;
 }
 
-
-.gameCtrl_item{
-  width:60%;
-  margin-top:10px;
+.gameCtrlGroup{
+  width:150px;
+  height:150px;
+  margin:10px auto;
+  text-align: center;
+  transform:rotate(45deg);
 }
+.gameCtrl_item{
+  margin:10px 0 0 10px;
+}
+
