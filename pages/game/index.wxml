@@ -1,35 +1,37 @@
-<!--得分-->
-<view class="score">
-    <view class="currentScore">当前得分 {{score}}</view>
-    <view class="topScore">最高得分 {{topScore}}</view>
-</view>
+<view class="gameView" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+    <!--得分-->
+    <view class="score">
+        <view class="currentScore">当前得分 {{score}}</view>
+        <view class="topScore">最高得分 {{topScore}}</view>
+    </view>
 
-<!--游戏网格-->
-<view class="gridPanel" style="width:{{gridSize}}px;height:{{gridSize}}px">
-    <view class="grid" wx:for="{{grid}}" id="g{{item.row}}{{item.cell}}" wx:key="g{{item}}"></view>
-    <view class="cell n{{data[item.row][item.cell]}}" wx:for="{{grid}}" id="c{{item.row}}{{item.cell}}" wx:key="c{{item}}" hidden="{{data[item.row][item.cell]==0?true:false}}">{{data[item.row][item.cell]}}</view>
-</view>
+    <!--游戏网格-->
+    <view class="gridPanel" style="width:{{gridSize}}px;height:{{gridSize}}px">
+        <view class="grid" wx:for="{{grid}}" id="g{{item.row}}{{item.cell}}" wx:key="g{{item}}"></view>
+        <view class="cell n{{data[item.row][item.cell]}}" wx:for="{{grid}}" id="c{{item.row}}{{item.cell}}" wx:key="c{{item}}" hidden="{{data[item.row][item.cell]==0?true:false}}">{{data[item.row][item.cell]}}</view>
+    </view>
 
-<!--游戏结束提示-->
-<view class="gameOver" wx:if="{{isShow}}">
-    <view class="bgModel"><!--满屏半透明背景--></view>
-    <view class="modalContent">
-        <view class="gameOverAlert">Game Over</view>
-        <view>
-            最后得分:<view class="lastScore">{{score}}</view>
+    <!--游戏结束提示-->
+    <view class="gameOver" wx:if="{{isShow}}">
+        <view class="bgModel"><!--满屏半透明背景--></view>
+        <view class="modalContent">
+            <view class="gameOverAlert">Game Over</view>
+            <view>
+                最后得分:<view class="lastScore">{{score}}</view>
+            </view>
+            <button bindtap="tryAgain" class="againBtn">Try Again</button>
         </view>
-        <button bindtap="tryAgain" class="againBtn">Try Again</button>
     </view>
-</view>
 
-<!--游戏控件-->
-<view class="gameCtrlGroup">
-    <view class="gameCtrlGroup_1">
-        <icon type="download" size="60"  bindtap="moveUp" class="gameCtrl_item moveUp" color="red" style="transform:rotate(135deg)"/>
-        <icon type="download" size="60"  bindtap="moveRight" class="gameCtrl_item moveRight" color="blue" style="transform:rotate(225deg)" />
-    </view>
-    <view class="gameCtrlGroup_2">
-        <icon type="download" size="60"  bindtap="moveLeft" class="gameCtrl_item moveLeft" color="green" style="transform:rotate(45deg)" />
-        <icon type="download" size="60"  bindtap="moveDown" class="gameCtrl_item moveDown" color="purple" style="transform:rotate(-45deg)" />       
-    </view>
+    <!--游戏控件-->
+    <!--<view class="gameCtrlGroup">
+        <view class="gameCtrlGroup_1">
+            <icon type="download" size="60"  bindtap="moveUp" class="gameCtrl_item moveUp" color="red" style="transform:rotate(135deg)"/>
+            <icon type="download" size="60"  bindtap="moveRight" class="gameCtrl_item moveRight" color="blue" style="transform:rotate(225deg)" />
+        </view>
+        <view class="gameCtrlGroup_2">
+            <icon type="download" size="60"  bindtap="moveLeft" class="gameCtrl_item moveLeft" color="green" style="transform:rotate(45deg)" />
+            <icon type="download" size="60"  bindtap="moveDown" class="gameCtrl_item moveDown" color="purple" style="transform:rotate(-45deg)" />       
+        </view>
+    </view>-->
 </view>

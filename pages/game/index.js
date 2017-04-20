@@ -5,11 +5,75 @@ Page({
     grid:[],
     isShow:false,//是否显示游戏结束提示
     data:[],//二维数组，保存游戏的数据
-    rows:2,//格子数，4x4
+    rows:4,//格子数，4x4
     score:0,//保存当前得分
     topScore:0,
     top:0,//保存最高分
-    state:1//保存游戏状态:0结束 1运行
+    state:1,//保存游戏状态:0结束 1运行
+    touchDot: 0,//触摸时的原点
+    time: 0,
+    moveWay:0//滑动的方向，1上滑，2右滑，3下滑，4左滑，0没有滑动
+  },
+  touchStart:function(e){
+    // console.log("touchStart",e);
+    // 获取触摸时的原点,并保存触摸时间
+    var touchDot = e.touches[0];
+    this.setData({
+      touchDot:touchDot,
+      time:new Date().getTime()
+    })
+  },
+  touchMove:function(e){
+    // console.log("touchMove",e);
+    var currentTime=new Date().getTime();
+    if(currentTime-this.data.time>=20){
+    //判断是左滑、右滑、上滑、下滑
+      var currentTouchX=e.touches[0].pageX;
+      var currentTouchY=e.touches[0].pageY;
+      var touchDot=this.data.touchDot;
+      var moveWay=0;
+      if(touchDot.pageY-currentTouchY>=30){
+        //上滑
+        moveWay=1;
+      }else if(currentTouchX-touchDot.pageX>=30){
+        //右滑
+        moveWay=2;
+      }else if(currentTouchY-touchDot.pageY>=30){
+        //下滑
+        moveWay=3;
+      }else if(touchDot.pageX-currentTouchX>=30){
+        //左滑
+        moveWay=4;
+      }
+      this.setData({
+        moveWay:moveWay,
+        time:new Date().getTime()
+      })
+    }
+  },
+  touchEnd:function(e){
+    var moveWay=this.data.moveWay;
+    // console.log("touchEnd",e,moveWay);
+    switch(moveWay){
+      case 1:
+        //上滑
+        this.moveUp();
+        break;
+      case 2:
+        //右滑
+        this.moveRight();
+        break;
+      case 3:
+        //下滑
+        this.moveDown();
+        break;
+      case 4:
+        //左滑
+        this.moveLeft();
+        break;
+      default:
+
+    }
   },
   start:function(){
     //game start
@@ -52,6 +116,8 @@ Page({
       gridSize:gridSize
     });
     this.start();
+
+
   },
   randomNum:function(){
     while(true){//循环:
@@ -299,6 +365,38 @@ Page({
     if(before==after){ return }
     this.randomNum();
     this.isGameOver()
+  },
+  onShareAppMessage:function(){
+    return {
+      title: 'game 2048',
+      path: '/pages/game/index',
+      success: function(res) {
+        // 分享成功
+        console.log('share success',res);
+        wx.showToast({
+          title: '分享成功',
+          icon: 'success',
+          duration: 2000
+        })
+      },
+      fail: function(res) {
+        // 分享失败
+        console.log('share fail',res);
+        if(res.errMsg.indexOf("cancel")!=-1){
+          wx.showToast({
+            title: '已取消分享',
+            icon: 'success',
+            duration: 2000
+          })
+        }else{
+          wx.showToast({  
+            title: '分享失败',
+            icon: 'warn',
+            duration: 2000
+          })
+        }
+      }
+    }
   },
   onReady:function(){
     // 页面渲染完成

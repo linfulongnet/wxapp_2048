@@ -1,14 +1,24 @@
 /* pages/game/index.wxss */
-page{font-size: 12px}
-
+page{
+  font-size: 12px;
+  height:100%;
+}
+.gameView{
+  width:100%;
+  height:100%;
+}
 .score{
     width:80%;
     line-height: 36px;
     margin:0 auto;
-    font-size:24px;
+    font-size:20px;
+}
+.currentScore,.topScore{
+  width:65%;
+  margin:0 auto;
 }
 .lf{
-    float:left;
+  float:left;
 }
 
 .gridPanel{
